@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru|Montserrat" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Nav Bar -->
+
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-custom" id="masthead">
+        <div class="container">
+            <a class="navbar-brand" id="logo" href="#">Trivia Game</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav navbar-right mr-auto mt-2 mt-lg-0">
+                </ul>
+
+                <ul class="navbar-nav navbar-right mt-2">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Game<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="readme.html">Instructions</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Center Div Main Game -->
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-12">
+                <div class="jumbotron">
+
+                    <!--Document Heading Title-->
+                    <h1 class="text-center">Trivia Game</h1>
+
+                    <br>
+
+
+                    <div class="row">
+                        <!--Alignment Div-->
+                        <div class="col-md-4"></div>
+
+                        <!--Centered Timer-->
+                        <div class="col-md-4">
+                            <h4 class="text-center" id="theTimer">Time Left: <span id="timer"><strong>03:00</strong></span></h4>
+                        </div>
+                        <!--Alignment Div-->
+                        <div class="col-md-4"></div>
+
+                    </div>
+
+                    <br>
+                    <!--
+                    <div class="row">
+                        
+                        <div class="col-md-2"></div>
+
+                        
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Option 1
+                                </label>
+                            </div>
+                        </div>
+
+                       
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Option 2
+                                </label>
+                            </div>
+                        </div>
+
+                       
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Option 3
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Option 4
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2"></div>
+
+                </div>
+-->
+                    <div id="startSection"></div>
+
+
+
+                    <div class="row" id="buttonForStart">
+
+                        <div class="col-md-8"></div>
+
+                        <div class="col-md-2">
+
+                            <div id="buttonSection"></div>
+
+                        </div>
+
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div id="triviaSection"></div>
+
+                    <div id="answerSection"></div>
+
+                    <div class="row">
+
+                        <div class="col-md-8"></div>
+
+                        <div class="col-md-2">
+
+                            <button type="button" class="btn btn-primary" id="finish" onclick="quizGrade()">Click here
+                                to finish!</button>
+
+                        </div>
+
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                    <div id="grade"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script type="text/javascript" src="assets/javascript/app.js"></script> -->
+    <div class="container">
+        <footer class="fixed-bottom">
+
+            <p>Adrian's Trivia Game &copy;</p>
+
+        </footer>
+    </div>
+    <script>
+        //Timer Variables
+        var timer = 0;
+        var displayTimer = timeConverter(timer);
+
+        //Time to resolve the quiz
+        function quizTime() {
+            timer = 180;
+            intervalId = setInterval(countdown, 1000);
+        }
+
+        //function to display time with mintues and seconds
+        function timeConverter() {
+
+            var minutes = Math.floor(timer / 60);
+            var seconds = timer - (minutes * 60);
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            if (minutes === 0) {
+                minutes = "00";
+            } else if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+
+            return minutes + ":" + seconds;
+        }
+        //function to initialize countdown
+        function countdown() {
+            timer--;
+            $("#timer").html(timeConverter);
+            if (timer === 0)[
+                quizGrade()
+            ]
+        }
+
+        //Array for questions
+        var triviaQuestions = [{
+                question: "Who was the main actor in the movie Gladiator?",
+                options: ["Russel Crowe", "Jim Carrey", "Wesley Snipes"],
+                answer: [],
+                correct: [0]
+            },
+
+            {
+                question: "In how many Ace Ventura films did Jim Carrey appear?",
+                options: ["3", "2", "4"],
+                answer: [],
+                correct: [1]
+            },
+
+            {
+                question: "Who acted as the Joker in the latest Batman Film?",
+                options: ["Paul Wesley", "Steven McQueen", "Heath Ledger"],
+                answer: [],
+                correct: [2]
+            },
+
+            {
+                question: "Who plays the main role in Scarface?",
+                options: ["Arnold Schwarzenegger", "Al Pacino", "Denzel Washington"],
+                answer: [],
+                correct: [1]
+            },
+
+            {
+                question: "In which film does Alec Baldwin appear?",
+                options: ["Terminator", "Its Complicated", "Gangs of New York"],
+                answer: [],
+                correct: [1]
+            },
+
+        ];
+        //trivia variables
+        var answers = [];
+        var amountOfQuestions = 5;
+        //var randomSelect = Math.floor(Math.random() * amountOfQuestions);
+        var questionDisplay = '<h4> Answer the Actor Trivia Questions </h4>';
+
+        //Function for question assignment on html
+        function assignQuestions() {
+            for (var i = 0; i < amountOfQuestions; i++) {
+
+                var randomSelect = i
+                questionDisplay += (i + 1) + '.  ' + triviaQuestions[i].question + '<br>';
+                questionDisplay += '<form><table>' +
+                    '<tr><td id="0"><input type="radio" value="0" name="choice" onclick="changeValue(' + i + ', 0)">' +
+                    '&nbsp;&nbsp;' +
+                    triviaQuestions[i]
+                    .options[0] +
+                    '</td></tr>' +
+                    '<tr><td id="1"><input type="radio" value="1" name="choice" onclick="changeValue(' + i + ', 1)">' +
+                    '&nbsp;&nbsp;' +
+                    triviaQuestions[i]
+                    .options[1] + '</td></tr>' +
+                    '<tr><td id="2"><input type="radio" value="2" name="choice" onclick="changeValue(' + i + ', 2)">' +
+                    '&nbsp;&nbsp;' +
+                    triviaQuestions[i]
+                    .options[2] +
+                    '</td></tr>' +
+                    '</table></form><br>';
+
+            }
+            document.getElementById('triviaSection').innerHTML = questionDisplay;
+        }
+
+        //Function used to change the answer value when radio button is selected
+        function changeValue(x, y) {
+            var questionNumber = x;
+            var numberSelector = y;
+            triviaQuestions[x].answer.splice(0, 1);
+            triviaQuestions[x].answer.push(y);
+            //console.log(triviaQuestions);
+        }
+
+        //function to remove questions and buttons and grade the answers
+        function quizGrade() {
+            $('#buttonForStart').hide();
+            $('#triviaSection').hide();
+            $('#startSection').hide();
+            $('#finish').hide();
+            $('#theTimer').hide();
+            $('#grade').show();
+
+            var correctChoice = 0;
+            //loop to determine how many questions where correctly answered
+            for (var i = 0; i < amountOfQuestions; i++) {
+                for (var j = 0; j < 3; j++) {
+                    if (triviaQuestions[i].answer[0] === triviaQuestions[i].correct[0]) {
+                        //console.log("Question" + i + "is correct");
+                        correctChoice++;
+                        //console.log(correctChoice);
+                    }
+                }
+            }
+            //score calculation
+            var gradeLoopCorrect = amountOfQuestions * 3
+            finalGrade = ((correctChoice / gradeLoopCorrect) * 100) + '%';
+            finalScore = 'You scored:' + finalGrade;
+            //print score
+            document.getElementById('grade').innerHTML = finalScore;
+        }
+
+        //function for trivia start
+        $(document).ready(function gameStart() {
+            //hide form finish button
+            $('#finish').hide();
+            //hide timer section
+            $('#theTimer').hide();
+            //hide grade field
+            $('#grade').hide();
+
+            //Add introduction section
+            var intro = $("<h5>");
+            // Add a class to center
+            intro.addClass("text-center");
+            // Add a data-attribute
+            intro.attr("data-name", "1");
+            // Add introduction text
+            intro.text("This is Adrian's Actor Trivia Game, press start to begin.");
+            // Adding the heading to the HTML
+            $("#startSection").append(intro);
+
+            // Add start button
+            var startButton = $("<button>");
+            // Add a class to button
+            startButton.addClass("text-center");
+            startButton.addClass("btn");
+            startButton.addClass("btn-primary");
+            startButton.addClass("gogo");
+            // Add text to button
+            startButton.text("Start Trivia");
+            // Add button to html
+            $('#buttonSection').append(startButton);
+
+            // Start button listener
+            $('.gogo').on('click', function () {
+                $('#buttonForStart').hide();
+                $('#startSection').hide();
+                $('#finish').show();
+                $('#theTimer').show();
+                quizTime();
+                assignQuestions();
+            })
+        })
+    </script>
+    <script src="" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
